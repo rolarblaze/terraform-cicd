@@ -8,7 +8,7 @@ on:
       - 'feature/*'
 
 env:
-  AWS_REGION: "us-east-2"
+  AWS_REGION: "us-east-1"
 
 permissions:
   id-token: write
@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   deploy:
-    name: Upload to Amazon S3
+    name: AWS OpenID Authentication with Github
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,7 +26,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::660380434217:role/OIDC_Connect
           role-session-name: openid-action-session 
-          aws-region: us-east-2
+          aws-region: us-east-1
 
   security-scan:
     name: Scan Terraform
