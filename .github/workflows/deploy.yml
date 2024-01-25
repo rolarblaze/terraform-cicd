@@ -21,12 +21,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Configure AWS credentials from Test account
+      
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::660380434217:role/OIDC_Connect
-          role-session-name: openid-action-session 
           aws-region: us-east-1
+          role-to-assume: arn:aws:iam::660380434217:role/OIDC_Connect
+          role-session-name: MySessionName
 
   security-scan:
     name: Scan Terraform
