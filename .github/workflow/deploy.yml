@@ -1,0 +1,53 @@
+name: Secure Terraform CICD Deployment
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - 'feature/*'
+
+env:
+  AWS_REGION: "us-east-2"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Upload to Amazon S3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::660380434217:role/OIDC_Connect
+          role-session-name: openid-action-session 
+          aws-region: us-east-1
+
+  security-scan:
+    name: Scan Terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::660380434217:role/OIDC_Connect
+          role-session-name: openid-action-session 
+          aws-region: us-east-1
+      - name: Terraform init
+        id: init 
+        run: terraform init 
+      - name: Terraform Validate 
+        id: validate 
+        run: terraform validate 
+      - name: Terraform Format
+        id: fmt 
+        run: terraform fmt -check
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Terraform Security Scan 
+        uses: aquasecurity/tfsec-action@master
