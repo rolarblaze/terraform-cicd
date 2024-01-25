@@ -26,7 +26,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::660380434217:role/OIDC_Connect
           role-session-name: openid-action-session 
-          aws-region: us-east-1
+          aws-region: us-east-2
 
   security-scan:
     name: Scan Terraform
