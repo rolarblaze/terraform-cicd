@@ -6,6 +6,7 @@ resource "aws_lb" "alb" {
   subnets            = var.subnets
 
   enable_deletion_protection = true
+  drop_invalid_header_fields = true
 
   tags = {
     Environment = "production"
