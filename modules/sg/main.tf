@@ -1,6 +1,6 @@
 resource "aws_security_group" "sg" {
-  name        = "sg"
-  description = "Allow HTTP, SSH inbound traffic"
+  name        = "http"
+  description = "Allow HTTP, SSH traffic"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -20,6 +20,7 @@ resource "aws_security_group" "sg" {
   }
 
   egress {
+    description      = "egress traffic"
     from_port        = 0
     to_port          = 0
     protocol         = "-1"

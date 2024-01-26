@@ -15,7 +15,7 @@ resource "aws_subnet" "main_subnet" {
   count = length(var.vpc_subnets_cidr)
   cidr_block = var.vpc_subnets_cidr[count.index]
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = {
     Name = var.subnet_names[count.index]

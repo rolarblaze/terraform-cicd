@@ -6,6 +6,17 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [var.sg_id]
   subnet_id = var.subnets[count.index]
   availability_zone = data.aws_availability_zones.available.names[count.index]
+  root_block_device {
+      encrypted = false
+  }
+
+  ebs_block_device {
+    device_name = "/dev/sdg"
+    volume_size = 5
+    volume_type = "gp2"
+    delete_on_termination = false
+    encrypted = false
+  }
   user_data = <<EOF
   #!/bin/bash
     sudo yum update -y
