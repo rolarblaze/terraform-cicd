@@ -7,7 +7,7 @@ resource "aws_instance" "web" {
   subnet_id = var.subnets[count.index]
   availability_zone = data.aws_availability_zones.available.names[count.index]
   root_block_device {
-      encrypted = false
+      encrypted = true
   }
 
   ebs_block_device {
@@ -15,7 +15,7 @@ resource "aws_instance" "web" {
     volume_size = 5
     volume_type = "gp2"
     delete_on_termination = false
-    encrypted = false
+    encrypted = true
   }
   user_data = <<EOF
   #!/bin/bash
